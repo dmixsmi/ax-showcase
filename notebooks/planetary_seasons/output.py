@@ -208,25 +208,6 @@ def _(mo):
 
 
 @app.cell
-def _(Path, json, mo):
-    _r = json.loads(Path("tests/browser_test_results.json").read_text())
-    mo.vstack([
-        mo.md(f"""
-    | check | result |
-    |---|---|
-    | WebGL canvas created, no fallback | {_r['webgl_ok'] and _r['fallback_visible'] is None} |
-    | Daylight, night, temperature and season pill vs Python, 7 states incl. poles and 0° tilt | {len(_r['parity_mismatches'])} mismatches |
-    | Temperature curve vs Python (max pixel residual after linear fit) | {_r['temp_curve_fit_resid_px']:.2f} px |
-    | Model saves during a 30-event slider burst (throttle) | {_r['saves_during_burst']} |
-    | Timeline label near an event / elsewhere | {_r['tl_label_event']} / {_r['tl_label_day']} |
-    | Browser console errors | {len(_r['errors'])} |
-    """),
-        mo.image("tests/shot_follow.png", width=620, caption="Follow-planet view at day 100, captured headless."),
-    ])
-    return
-
-
-@app.cell
 def _(mo):
     mo.md(r"""
     ## Limits
